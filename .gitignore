@@ -9,6 +9,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+launchSettings.json
+vite.config.js
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
