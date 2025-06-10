@@ -10,7 +10,7 @@ import {
   NavbarBrand,
   NavbarToggler,
 } from "reactstrap";
-import { logout } from "../managers/authManager";
+import { logout } from "../../managers/authManager";
 import  "./Nav.css" 
 
 export default function NavBar({ loggedInUser, setLoggedInUser }) {
