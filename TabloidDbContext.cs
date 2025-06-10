@@ -9,6 +9,12 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
     private readonly IConfiguration _configuration;
 
     public DbSet<UserProfile> UserProfiles { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<Tag> Tags { get; set; }
+    public DbSet<PostTag> PostTags { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+    public DbSet<Subscription> Subscriptions { get; set; }
 
 
     public TabloidDbContext(DbContextOptions<TabloidDbContext> context, IConfiguration config) : base(context)
@@ -144,6 +150,51 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
                 ImageLocation = "https://robohash.org/hicnihilipsa.png?size=150x150&set=set1",
                 IdentityUserId = "d224a03d-bf0c-4a05-b728-e3521e45d74d",
             }
+        });
+
+        modelBuilder.Entity<Category>().HasData(new Category[]
+        {
+            new Category { Id = 1, Name = "Technology" },
+            new Category { Id = 2, Name = "Science" },
+            new Category { Id = 3, Name = "Politics" },
+            new Category { Id = 4, Name = "Sports" }
+        });
+
+        modelBuilder.Entity<Post>().HasData(new Post[]
+        {
+            new Post { Id = 1, UserId = 1, Title = "First Post", SubTitle = "First Subtitle", CategoryId = 1, PublishingDate = DateTime.Now, Body = "This is the first post." },
+            new Post { Id = 2, UserId = 2, Title = "Second Post", SubTitle = "Second Subtitle", CategoryId = 2, PublishingDate = DateTime.Now, Body = "This is the second post." },
+            new Post { Id = 3, UserId = 3, Title = "Third Post", SubTitle = "Third Subtitle", CategoryId = 3, PublishingDate = DateTime.Now, Body = "This is the third post." }
+        });
+
+        modelBuilder.Entity<Tag>().HasData(new Tag[]
+        {
+            new Tag { Id = 1, Name = "C#" },
+            new Tag { Id = 2, Name = "JavaScript" },
+            new Tag { Id = 3, Name = "React" },
+            new Tag { Id = 4, Name = "SQL" }
+        });
+
+        modelBuilder.Entity<PostTag>().HasData(new PostTag[]
+        {
+            new PostTag { Id = 1, PostId = 1, TagId = 1 },
+            new PostTag { Id = 2, PostId = 1, TagId = 2 },
+            new PostTag { Id = 3, PostId = 2, TagId = 3 },
+            new PostTag { Id = 4, PostId = 2, TagId = 4 }
+        });
+
+        modelBuilder.Entity<Comment>().HasData(new Comment[]
+        {
+            new Comment { Id = 1, UserProfileId = 1, PostId = 1, CreatedOnDate = DateTime.Now, Body = "First comment" },
+            new Comment { Id = 2, UserProfileId = 2, PostId = 1, CreatedOnDate = DateTime.Now, Body = "Second comment" },
+            new Comment { Id = 3, UserProfileId = 3, PostId = 2, CreatedOnDate = DateTime.Now, Body = "Third comment" }
+        });
+
+        modelBuilder.Entity<Subscription>().HasData(new Subscription[]
+        {
+            new Subscription { Id = 1, UserProfileId = 1, AuthorId = 2 },
+            new Subscription { Id = 2, UserProfileId = 2, AuthorId = 3 },
+            new Subscription { Id = 3, UserProfileId = 3, AuthorId = 1 }
         });
     }
 }

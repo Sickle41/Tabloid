@@ -1,15 +1,23 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Tabloid.Models;
-
-public class Post
+namespace Tabloid.Models
 {
-    public int Id { get; set; }
-    public int UserId { get; set; }
-    public string Title { get; set; }
-    public string SubTitle { get; set; }
-    public int CategoryId { get; set; }
-    public DateTime PublishingDate { get; set; }
-    public string HeaderImage { get; set; }
-    public string Body { get; set; }
+    public class Post
+    {
+        public int Id { get; set; }
+        [Required]
+        public int UserId { get; set; }
+        [Required]
+        public string Title { get; set; }
+        public string SubTitle { get; set; }
+        [Required]
+        public int CategoryId { get; set; }
+        public DateTime PublishingDate { get; set; }
+        public string? HeaderImage { get; set; }
+        [Required]
+        public string Body { get; set; }
+        public UserProfile? UserProfile { get; set; }
+        public Category? Category { get; set; }
+    }
 }
