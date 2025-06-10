@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { AuthorizedRoute } from "./auth/AuthorizedRoute";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
+import { CreatePost } from "./CreatePost.jsx";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -13,6 +14,14 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             <AuthorizedRoute loggedInUser={loggedInUser}>
             </AuthorizedRoute>
           }
+        />
+        <Route
+        path="create-post"
+        element={
+          <AuthorizedRoute loggedInUser={loggedInUser}>
+            <CreatePost/>
+          </AuthorizedRoute>
+        }
         />
        
         <Route

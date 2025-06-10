@@ -11,6 +11,7 @@ import {
   NavbarToggler,
 } from "reactstrap";
 import { logout } from "../managers/authManager";
+import  "./Nav.css" 
 
 export default function NavBar({ loggedInUser, setLoggedInUser }) {
   const [open, setOpen] = useState(false);
@@ -19,7 +20,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
 
   return (
     <div>
-      <Navbar color="light" light fixed="true" expand="lg">
+      <Navbar color="dark" dark fixed="true" expand="lg">
         <NavbarBrand className="mr-auto" tag={RRNavLink} to="/">
           ✍️ Tabloid
         </NavbarBrand>
@@ -29,16 +30,22 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
             <Collapse isOpen={open} navbar>
               <Nav navbar>
                 {loggedInUser.roles.includes("Admin") && (
+                  <>
                   <NavItem>
                     <NavLink tag={RRNavLink} to="/userprofiles">
                       User Profiles
                     </NavLink>
-                  </NavItem>
+                  </NavItem><NavItem>
+                      <NavLink tag={RRNavLink} to="/create-post">
+                        Create Post
+                      </NavLink>
+                    </NavItem>
+                    </>
                 )}
               </Nav>
             </Collapse>
             <Button
-              color="primary"
+              className="btn-log"
               onClick={(e) => {
                 e.preventDefault();
                 setOpen(false);
@@ -55,7 +62,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
           <Nav navbar>
             <NavItem>
               <NavLink tag={RRNavLink} to="/login">
-                <Button color="primary">Login</Button>
+                <Button className="btn-log" >Login</Button>
               </NavLink>
             </NavItem>
           </Nav>
