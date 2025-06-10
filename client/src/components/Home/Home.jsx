@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import "./Home.css"
 import { getAllPosts } from "../../managers/postManager"
+import { getAllUserProfiles } from "../../managers/userProfileManager"
 
 export const Home = () => {
     const [latestPosts, setLatestPosts] = useState([])
@@ -12,14 +13,14 @@ export const Home = () => {
             const sortedPosts = posts.sort((a, b) => new Date(b.PublishingDate) - new Date(a.PublishingDate))
             setLatestPosts(sortedPosts.slice(1, 4))
             setBigPost(sortedPosts.shift())
+        })
 
+        getAllUserProfiles().then(profiles => {
+            const sortedProfiles = profiles.sort((a, b) => new Date(b.createDateTime) - new Date(a.createDateTime))
+            setLatestAuthors(sortedProfiles.slice(0, 4))
         })
     }, [])
 
-    /*
-    const authors = Array.from(new Set(sortedPosts.map(post => post.author)))
-            setLatestAuthors(authors.slice(0, 4))
-    */
 
     return (
         <div className="home-container">
@@ -80,7 +81,10 @@ export const Home = () => {
                 </div>
             </div>
             <div className="authors partial-border-image">
-                Authors
+                {latestAuthors.map(a => <div>
+                    <h2>{a.userName}</h2>
+                    {a.createDateTime ? (<h2>Joined on: {new Date(a.createDateTime).toLocaleDateString()}</h2>) : null}
+                </div>)}
             </div>
         </div>
     )
