@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./CreatePost.css";
+import { getCategories } from "../managers/categoryManager.js";
 
 export const CreatePost = ()=> {
 const [title, setTitle] = useState("")
@@ -7,6 +8,12 @@ const [subTitle, setSubTitle] = useState("")
 const [allCategories, setAllCategories] = useState([])
 const [chosenCategory, setChosenCategory] = useState("")
 const [body, setBody] = useState("")
+
+useEffect(()=>{
+    getCategories().then(categoryArray=>{
+        setAllCategories(categoryArray)
+    })
+},[])
 
     return(
         <div className="create-form">
@@ -25,9 +32,9 @@ const [body, setBody] = useState("")
                 <h6>Category</h6>
             <select className="form-select" aria-label="Default select example">
                 <option value="0">Select a Category</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                {allCategories.map(category=>
+                <option value={category.Id} key={category.id}>{category.name}</option>
+                )}
             </select>
             </div>
             <div>
