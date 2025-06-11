@@ -54,5 +54,32 @@ namespace Tabloid.Controllers
 
             return Ok(posts);
         }
+        [HttpPost]
+        [Authorize]
+
+        public IActionResult CreatePost(Post post)
+        {
+            post.PublishingDate = DateTime.Now;
+            _dbContext.Posts.Add(post);
+            _dbContext.SaveChanges();
+            return Created($"/api/post/{post.Id}", post);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+
+        public IActionResult DeletePost(int id)
+        {
+            var post = _dbContext.Posts.SingleOrDefault(p => p.Id == id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            _dbContext.Remove(post);
+            _dbContext.SaveChanges();
+
+            return NoContent();
+        }
     }
+    
 }
