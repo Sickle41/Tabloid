@@ -23,7 +23,18 @@ public class UserProfileController : ControllerBase
     [Authorize]
     public IActionResult Get()
     {
-        return Ok(_dbContext.UserProfiles.ToList());
+        var users = _dbContext.UserProfiles
+            .Include(up => up.IdentityUser)
+            .Select(up => new UserProfile
+            {
+            Id = up.Id,
+            FirstName = up.FirstName,
+            LastName = up.LastName,
+            Email = up.IdentityUser.Email,
+            UserName = up.IdentityUser.UserName,
+            })
+            .ToList();
+        return Ok(users);
     }
 
     [HttpGet("withroles")]
