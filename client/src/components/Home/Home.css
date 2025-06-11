@@ -1,6 +1,6 @@
 .home-container {
     display: flex;
-    width: 100vw;
+    width: 80vw;
     height: calc(100vh - 56px);
     justify-content: center;
     align-items: center;
