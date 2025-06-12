@@ -119,6 +119,28 @@ namespace Tabloid.Controllers
 
             return Ok(postDto);
         }
+        [HttpPut("{id}")]
+        [Authorize]
+        public IActionResult UpdatePost(Post post, int id)
+        {
+            Post postToUpdate = _dbContext.Posts.SingleOrDefault(p => p.Id == id);
+            if(postToUpdate == null){
+                return NotFound();
+            }else if(id != post.Id){
+                return BadRequest();
+            }
+
+            postToUpdate.Title = post.Title;
+            postToUpdate.SubTitle = post.SubTitle;
+            postToUpdate.CategoryId = post.CategoryId;
+            postToUpdate.Body = post.Body;
+            
+            
+            _dbContext.SaveChanges();
+
+            return NoContent();
+
+        }
 
     }
 
