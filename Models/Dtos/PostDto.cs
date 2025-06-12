@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tabloid.Models.Dtos;
 
@@ -19,5 +20,6 @@ public class PostDto
     [Required]
     public string Body { get; set; }
     public List<TagDto> Tags { get; set; }
+    [ForeignKey("UserId")]
     public UserProfileDto UserProfile { get; set; }
 }

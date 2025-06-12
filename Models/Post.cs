@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tabloid.Models
 {
@@ -17,6 +18,7 @@ namespace Tabloid.Models
         public string? HeaderImage { get; set; }
         [Required]
         public string Body { get; set; }
+        [ForeignKey("UserId")]
         public UserProfile? UserProfile { get; set; }
         public Category? Category { get; set; }
     }
