@@ -8,6 +8,7 @@ import { AllPosts } from "./allPosts/AllPosts.jsx";
 import Categories from "./Categories/Categories.jsx";
 import { CreatePost } from "./createPosts/CreatePost.jsx";
 import { EditPost } from "./editPosts/EditPost.jsx";
+import { PostDetails } from "./postDetails/PostDetails.jsx";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -35,6 +36,15 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         element={
           <AuthorizedRoute loggedInUser={loggedInUser}>
             <AllPosts/>
+          </AuthorizedRoute>
+        }
+        />
+
+        <Route
+        path="post/:postId"
+        element={
+          <AuthorizedRoute loggedInUser={loggedInUser}>
+            <PostDetails/>
           </AuthorizedRoute>
         }
         />
