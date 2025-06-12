@@ -1,0 +1,21 @@
+.categories-container {
+    padding: 20px;
+  }
+  
+  .categories-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .category-actions button {
+    margin-left: 10px;
+    cursor: pointer;
+  }

@@ -5,6 +5,7 @@ import Register from "./auth/Register";
 import { Home } from "./Home/Home";
 import { CreatePost } from "./CreatePost.jsx";
 import { AllPosts } from "./allPosts/AllPosts.jsx";
+import Categories from "./Categories/Categories.jsx";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -34,6 +35,15 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             <AllPosts/>
           </AuthorizedRoute>
         }
+        />
+
+        <Route
+          path="categories"
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <Categories/>
+            </AuthorizedRoute>
+          }
         />
        
         <Route

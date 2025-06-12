@@ -46,6 +46,11 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                         All Posts
                       </NavLink>
                     </NavItem>
+                    <NavItem>
+                      <NavLink tag={RRNavLink} to="/categories">
+                        Categories
+                      </NavLink>
+                    </NavItem>
                     </>
                 )}
               </Nav>
