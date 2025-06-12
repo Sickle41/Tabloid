@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./CreatePost.css";
-import { getCategories } from "../managers/categoryManager.js";
-import { createNewPost } from "../managers/postManager.js";
+import { getCategories } from "../../managers/categoryManager.js";
+import { createNewPost } from "../../managers/postManager.js";
 import { useNavigate } from "react-router-dom";
 
 export const CreatePost = ()=> {
@@ -9,7 +9,6 @@ const [title, setTitle] = useState("")
 const [subTitle, setSubTitle] = useState("")
 const [allCategories, setAllCategories] = useState([])
 const [chosenCategory, setChosenCategory] = useState("")
-const [publishDate, setPublishDate] = useState("")
 const [body, setBody] = useState("")
 const navigate = useNavigate()
 
@@ -53,11 +52,6 @@ const handleSaveButton = ()=>{
                 <option value={category.id} key={category.id}>{category.name}</option>
                 )}
             </select>
-            </div>
-            <div>
-                <h6>Publishing Date</h6>
-            <input className="form-control" type="text" 
-            placeholder="mm/dd/yyyy"aria-label="default input example" onChange={(event)=>{setPublishDate(event.target.value)}}/>
             </div>
             <div className="mb-3">
                 <label className="form-label"><h6>Body</h6></label>

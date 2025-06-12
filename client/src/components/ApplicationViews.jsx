@@ -3,9 +3,11 @@ import { AuthorizedRoute } from "./auth/AuthorizedRoute";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import { Home } from "./Home/Home";
-import { CreatePost } from "./CreatePost.jsx";
+
 import { AllPosts } from "./allPosts/AllPosts.jsx";
 import Categories from "./Categories/Categories.jsx";
+import { CreatePost } from "./createPosts/CreatePost.jsx";
+import { EditPost } from "./editPosts/EditPost.jsx";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -45,7 +47,14 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             </AuthorizedRoute>
           }
         />
-       
+       <Route
+        path="edit-posts/:postId"
+        element={
+          <AuthorizedRoute loggedInUser={loggedInUser}>
+            <EditPost/>
+          </AuthorizedRoute>
+        }
+        />
         <Route
           path="login"
           element={<Login setLoggedInUser={setLoggedInUser} />}
