@@ -80,6 +80,46 @@ namespace Tabloid.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetPostById(int id)
+        {
+            var post = _dbContext.Posts
+                .Include(p => p.Category)
+                .Include(p => p.UserProfile)
+                .FirstOrDefault(p => p.Id == id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            var postDto = new PostDto
+            {
+                Id = post.Id,
+                UserId = post.UserId,
+                Title = post.Title,
+                SubTitle = post.SubTitle,
+                CategoryId = post.CategoryId,
+                Category = post.Category == null ? null : new CategoryDto
+                {
+                    Id = post.Category.Id,
+                    Name = post.Category.Name
+                },
+                PublishingDate = post.PublishingDate,
+                HeaderImage = post.HeaderImage,
+                Body = post.Body,
+                UserProfile = post.UserProfile == null ? null : new UserProfileDto
+                {
+                    Id = post.UserProfile.Id,
+                    FirstName = post.UserProfile.FirstName,
+                    LastName = post.UserProfile.LastName
+                }
+            };
+
+            return Ok(postDto);
+        }
+
     }
-    
+
 }
