@@ -82,42 +82,44 @@ namespace Tabloid.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
-
         public IActionResult GetPostById(int id)
         {
-            Post post = _dbContext.Posts.SingleOrDefault(p => p.Id == id);
+            var post = _dbContext.Posts
+                .Include(p => p.Category)
+                .Include(p => p.UserProfile)
+                .FirstOrDefault(p => p.Id == id);
 
             if (post == null)
             {
                 return NotFound();
             }
-            return Ok(post);
+
+            var postDto = new PostDto
+            {
+                Id = post.Id,
+                UserId = post.UserId,
+                Title = post.Title,
+                SubTitle = post.SubTitle,
+                CategoryId = post.CategoryId,
+                Category = post.Category == null ? null : new CategoryDto
+                {
+                    Id = post.Category.Id,
+                    Name = post.Category.Name
+                },
+                PublishingDate = post.PublishingDate,
+                HeaderImage = post.HeaderImage,
+                Body = post.Body,
+                UserProfile = post.UserProfile == null ? null : new UserProfileDto
+                {
+                    Id = post.UserProfile.Id,
+                    FirstName = post.UserProfile.FirstName,
+                    LastName = post.UserProfile.LastName
+                }
+            };
+
+            return Ok(postDto);
         }
 
-        [HttpPut]
-        [Authorize]
-
-        public IActionResult UpdatePost(Post post, int id)
-        {
-            Post postToUpdate = _dbContext.Posts.SingleOrDefault(p => p.Id == id);
-            if (postToUpdate == null)
-            {
-                return NotFound();
-            }
-            else if (id != post.Id)
-            {
-                return BadRequest();
-            }
-            postToUpdate.Title = post.Title;
-            postToUpdate.SubTitle = post.SubTitle;
-            postToUpdate.CategoryId = post.CategoryId;
-            postToUpdate.Body = post.Body;
-
-            _dbContext.SaveChanges();
-
-            return NoContent();
-        }
     }
-    
+
 }

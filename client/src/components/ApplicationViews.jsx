@@ -5,6 +5,7 @@ import Register from "./auth/Register";
 import { Home } from "./Home/Home";
 
 import { AllPosts } from "./allPosts/AllPosts.jsx";
+import { PostDetails } from "./postDetails/PostDetails.jsx";
 import { CreatePost } from "./createPosts/CreatePost.jsx";
 import { EditPost } from "./editPosts/EditPost.jsx";
 
@@ -34,6 +35,15 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         element={
           <AuthorizedRoute loggedInUser={loggedInUser}>
             <AllPosts/>
+          </AuthorizedRoute>
+        }
+        />
+
+        <Route
+        path="post/:postId"
+        element={
+          <AuthorizedRoute loggedInUser={loggedInUser}>
+            <PostDetails loggedInUser={loggedInUser}/>
           </AuthorizedRoute>
         }
         />
