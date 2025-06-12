@@ -80,6 +80,44 @@ namespace Tabloid.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("{id}")]
+        [Authorize]
+
+        public IActionResult GetPostById(int id)
+        {
+            Post post = _dbContext.Posts.SingleOrDefault(p => p.Id == id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
+        }
+
+        [HttpPut]
+        [Authorize]
+
+        public IActionResult UpdatePost(Post post, int id)
+        {
+            Post postToUpdate = _dbContext.Posts.SingleOrDefault(p => p.Id == id);
+            if (postToUpdate == null)
+            {
+                return NotFound();
+            }
+            else if (id != post.Id)
+            {
+                return BadRequest();
+            }
+            postToUpdate.Title = post.Title;
+            postToUpdate.SubTitle = post.SubTitle;
+            postToUpdate.CategoryId = post.CategoryId;
+            postToUpdate.Body = post.Body;
+
+            _dbContext.SaveChanges();
+
+            return NoContent();
+        }
     }
     
 }
