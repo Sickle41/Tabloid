@@ -10,6 +10,7 @@ import { CreatePost } from "./createPosts/CreatePost.jsx";
 import { EditPost } from "./editPosts/EditPost.jsx";
 import { PostDetails } from "./postDetails/PostDetails.jsx";
 
+
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
     <Routes>
@@ -49,6 +50,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         }
         />
 
+
         <Route
           path="categories"
           element={
@@ -57,6 +59,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             </AuthorizedRoute>
           }
         />
+
        <Route
         path="edit-posts/:postId"
         element={
