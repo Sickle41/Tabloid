@@ -10,7 +10,7 @@ export const PostDetails = ({loggedInUser}) => {
 
     useEffect(() => {
         getPostById(postId).then(setPost)
-    }, [])
+    }, [postId])
 
     return (
         <div className="post-details">
@@ -21,7 +21,7 @@ export const PostDetails = ({loggedInUser}) => {
             <div className="body">
                 {post.body}
             </div>
-            {loggedInUser.id == post.userId && <button onClick={() => {}}>Edit</button>}
+            {loggedInUser.id == post.userId && <button onClick={() => {navigate(`/edit-posts/${post.id}`)}}>Edit</button>}
         </div>
     )
 }
